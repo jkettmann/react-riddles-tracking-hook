@@ -1,5 +1,16 @@
 import { MutableRefObject, useEffect } from "react";
 
+function getTrackingId(element: HTMLElement | null) {
+  if (!element) {
+    return null;
+  }
+  const trackingId = element.dataset.trackingId;
+  if (trackingId) {
+    return trackingId;
+  }
+  return getTrackingId(element.parentElement);
+}
+
 export function useTracking(
   containerRef: MutableRefObject<HTMLElement | null>,
   containerId: string,
@@ -16,7 +27,7 @@ export function useTracking(
     const listener = (event: Event) => {
       // get the tracking id from the data attribute (e.g. data-tracking-id="button-1")
       const target = event.target as HTMLElement;
-      const trackingId = target.dataset.trackingId;
+      const trackingId = getTrackingId(target);
 
       // Send tracking event
       if (trackingId) {
