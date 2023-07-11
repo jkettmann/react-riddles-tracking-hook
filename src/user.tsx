@@ -17,7 +17,6 @@ export function User() {
   return (
     <div ref={containerRef}>
       <p>User data: {data}</p>
-      <Button data-tracking-id="edit">Edit</Button>
       <Button data-tracking-id="edit-icon" icon={<EditIcon />} />
     </div>
   );
